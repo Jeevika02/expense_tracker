@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            padding-top: 80px;
+        }
+        h2 {
+            color: #333;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome, {{ user.username }}!</h2>
+
+    <a href="{{ url_for('expenses.add_expense') }}" class="button">Add Expense</a>
+    <a href="{{ url_for('expenses.budgets') }}" class="button">View Budgets</a>
+    <h3>Category Budgets</h3>
+<ul>
+  {% for budget in category_budgets %}
+    <li>{{ budget.category }}: ₹{{ budget.amount }}
+    - Spent: ₹{{ expenses_by_category[budget.category] or 0 }}</li>
+  {% endfor %}
+</ul>
+
+    <a href="{{ url_for('auth.logout') }}" class="button" style="background-color: #f44336;">Logout</a>
+</body>
+</html>
